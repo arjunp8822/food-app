@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://127.0.0.1:4000";
+axios.defaults.baseURL = "https://food-app-x2zd.onrender.com";
 
 function App() {
   return (
