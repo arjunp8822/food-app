@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import IngredientCard from "../components/IngredientCard";
 import RecipeCard from "../components/RecipeCard";
+import data from "../../../backend/solids.json";
 
 const Home = () => {
   const [solidIngredients, setSolidIngredients] = useState([]);
@@ -15,9 +16,7 @@ const Home = () => {
   const [multiply, setMultiply] = useState(1);
 
   const fetchIngredients = async () => {
-    const response = await axios.get("/ingredients/solids");
-    setSolidIngredients(await response.data);
-    setSearchResults(await response.data.slice(0, 20));
+    await setSolidIngredients(data);
   };
 
   useEffect(() => {
