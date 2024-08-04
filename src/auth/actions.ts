@@ -77,13 +77,15 @@ export const login = async (formData: FormData) => {
     },
   });
 
+  console.log(user);
+
   if (!user) return { error: "Incorrect username or password" };
 
   // check password
 
   if (user.password === password) {
-    session.userId = "1";
-    session.username = username;
+    session.userId = user.id;
+    session.username = user.email;
     session.isAdmin = user.isAdmin;
     session.isLoggedIn = true;
 

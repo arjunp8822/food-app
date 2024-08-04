@@ -1,7 +1,19 @@
-import React from "react";
+import CreateRecipe from "@/app/components/CreateRecipe";
+import { getSession } from "@/auth/actions";
+import { redirect } from "next/navigation";
 
-const CreateRecipe = () => {
-  return <div>CreateRecipe</div>;
+const page = async () => {
+  const session = await getSession();
+
+  if (!session.isLoggedIn) {
+    return redirect("/login");
+  }
+
+  return (
+    <div>
+      <CreateRecipe userId={session.userId} />
+    </div>
+  );
 };
 
-export default CreateRecipe;
+export default page;

@@ -12,7 +12,7 @@ const Navbar = async () => {
       </div>
       <ul className="flex gap-4">
         <li>
-          <Link href="/recipes">Recipes</Link>
+          <Link href="/recipes/popular">Recipes</Link>
         </li>
         {session.isLoggedIn && (
           <li>

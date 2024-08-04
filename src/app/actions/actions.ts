@@ -24,6 +24,35 @@ export const fetchAllRecipes = async () => {
       author: true,
     },
   });
-  console.log(recipes);
   return recipes;
+};
+
+export const saveRecipe = async (recipeData: {
+  title: string;
+  authorId: string;
+  savedItems: { id: number; weight: number }[];
+}) => {
+  const { title, authorId, savedItems } = recipeData;
+
+  console.log(recipeData);
+
+  try {
+    const recipe = await prisma.recipe.create({
+      data: {
+        title,
+        authorId,
+        items: {
+          create: savedItems.map((item) => ({
+            itemId: item.id,
+            weight: item.weight,
+          })),
+        },
+      },
+    });
+
+    return recipe;
+  } catch (error) {
+    console.error("Error saving recipe and items:", error);
+    throw error;
+  }
 };
