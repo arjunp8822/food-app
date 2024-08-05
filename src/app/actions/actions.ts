@@ -27,6 +27,15 @@ export const fetchAllRecipes = async () => {
   return recipes;
 };
 
+export const fetchAllRecipesByAuthor = async (author_id: string) => {
+  const recipes = await prisma.recipe.findMany({
+    where: {
+      authorId: author_id,
+    },
+  });
+  return recipes;
+};
+
 export const saveRecipe = async (recipeData: {
   title: string;
   authorId: string;
@@ -56,3 +65,6 @@ export const saveRecipe = async (recipeData: {
     throw error;
   }
 };
+function async() {
+  throw new Error("Function not implemented.");
+}
