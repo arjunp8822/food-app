@@ -1,4 +1,4 @@
-import Link from "next/link";
+import RecipeLinks from "../components/RecipeLinks";
 
 export default function RootLayout({
   children,
@@ -6,13 +6,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
-      <div className="flex gap-2">
-        <Link href="/recipes/popular">Popular</Link>
-        <Link href="/recipes/mine">Mine</Link>
-        <Link href="/recipes/create">Create</Link>
-      </div>
-      {children}
+    <div className="flex gap-4 sm:gap-8 flex-col sm:flex-row">
+      <RecipeLinks />
+      <div className="bg-red-50 w-full">{children}</div>
     </div>
   );
 }
