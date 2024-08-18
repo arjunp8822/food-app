@@ -19,17 +19,23 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <input
         type="text"
         placeholder="Start searching for an item"
-        className="p-1 border w-[400px]"
+        className="p-2 border w-full rounded-lg"
         value={searchValue}
         onChange={(e) => onSearchChange(e.target.value)}
       />
-      <ul className="absolute bg-red-50 translate-y-12">
-        {filteredItems.map((item) => (
-          <li key={item.id} onClick={() => onItemSelect(item)}>
-            {item.name}
-          </li>
-        ))}
-      </ul>
+      {filteredItems.length > 0 && (
+        <ul className="absolute translate-y-12 border z-10 bg-white p-2 rounded-lg flex flex-col gap-1 w-full shadow-sm text-gray-500">
+          {filteredItems.map((item) => (
+            <li
+              key={item.id}
+              onClick={() => onItemSelect(item)}
+              className="hover:bg-gray-100 transition-all cursor-pointer p-1 rounded"
+            >
+              {item.name}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

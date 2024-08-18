@@ -126,31 +126,45 @@ const CreateRecipe = ({ userId }: CreateRecipeProps) => {
   };
 
   return (
-    <div>
-      <h1>Create a recipe</h1>
-      <SearchBar
-        searchValue={searchValue}
-        onSearchChange={search}
-        filteredItems={filteredItems}
-        onItemSelect={openModal}
-      />
-      <input
-        type="text"
-        placeholder="Recipe name"
-        onChange={(e) => setRecipeName(e.target.value)}
-        className="border p-1"
-      />
-      {showModal && (
-        <ItemModal
-          currentItem={currentItem}
-          currentItemWeight={currentItemWeight}
-          onWeightChange={handleWeightChange}
-          onSave={saveItem}
-          onClear={clearItem}
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-1">
+        <label htmlFor="name" className="font-semibold">
+          Enter your recipe name
+        </label>
+        <input
+          type="text"
+          placeholder="Chicken leek soup"
+          onChange={(e) => setRecipeName(e.target.value)}
+          className="border p-2 rounded-lg"
+          id="name"
         />
+      </div>
+      <div className="flex gap-1 flex-col">
+        <h2 className="font-semibold">Add raw ingredients to your recipe</h2>
+        <SearchBar
+          searchValue={searchValue}
+          onSearchChange={search}
+          filteredItems={filteredItems}
+          onItemSelect={openModal}
+        />
+      </div>
+
+      {showModal && (
+        <div className="w-full h-full top-0 left-0 fixed flex justify-center items-center backdrop-blur-sm p-4">
+          <ItemModal
+            currentItem={currentItem}
+            currentItemWeight={currentItemWeight}
+            onWeightChange={handleWeightChange}
+            onSave={saveItem}
+            onClear={clearItem}
+          />
+        </div>
       )}
       <SavedItemsList savedItems={savedItems} removeItem={removeItem} />
-      <button onClick={saveToDB} className="bg-black text-white p-1">
+      <button
+        onClick={saveToDB}
+        className="bg-black text-white p-2 font-semibold w-[120px] rounded-lg"
+      >
         Save Recipe
       </button>
     </div>

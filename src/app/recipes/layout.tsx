@@ -8,7 +8,7 @@ export default function RootLayout({
   return (
     <div className="flex gap-4 sm:gap-8 flex-col sm:flex-row">
       <RecipeLinks />
-      <div className="bg-red-50 w-full">{children}</div>
+      <div className="w-full">{children}</div>
     </div>
   );
 }

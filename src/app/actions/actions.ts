@@ -2,6 +2,7 @@
 
 import { getSession } from "@/auth/actions";
 import prisma from "../../../db";
+import { redirect } from "next/navigation";
 
 export const getAllUsers = async () => {
   const session = await getSession();
@@ -32,6 +33,9 @@ export const fetchAllRecipesByAuthor = async (author_id: string) => {
     where: {
       authorId: author_id,
     },
+    include: {
+      author: true,
+    },
   });
   return recipes;
 };
@@ -42,8 +46,6 @@ export const saveRecipe = async (recipeData: {
   savedItems: { id: number; weight: number }[];
 }) => {
   const { title, authorId, savedItems } = recipeData;
-
-  console.log(recipeData);
 
   try {
     const recipe = await prisma.recipe.create({
@@ -63,6 +65,8 @@ export const saveRecipe = async (recipeData: {
   } catch (error) {
     console.error("Error saving recipe and items:", error);
     throw error;
+  } finally {
+    redirect("/recipes/mine");
   }
 };
 function async() {

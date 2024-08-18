@@ -1,5 +1,6 @@
 import React from "react";
 import { Item } from "@/app/recipes/create/page";
+import { IoIosClose } from "react-icons/io";
 
 interface SavedItemsListProps {
   savedItems: Item[];
@@ -11,17 +12,25 @@ const SavedItemsList: React.FC<SavedItemsListProps> = ({
   removeItem,
 }) => {
   return (
-    <ul className="flex flex-col gap-2 mt-4">
-      {savedItems.map((item, index) => (
-        <li key={index}>
-          <div className="flex gap-2 bg-red-50 w-fit">
-            <p>{item.name}</p>
-            <p>{item.calories.toFixed(0)} kCal</p>
-            <button onClick={() => removeItem(index)}>Remove</button>
-          </div>
-        </li>
-      ))}
-    </ul>
+    <div className="flex flex-col gap-2">
+      <h2 className="underline">Your saved ingrdients</h2>
+      <ul className="flex gap-2 flex-wrap">
+        {savedItems.map((item, index) => (
+          <li
+            key={index}
+            className="flex gap-4 sm:gap-8 border p-2 rounded-lg shadow-sm justify-center"
+          >
+            <div className="flex flex-col">
+              <p>{item.name}</p>
+              <p className="text-gray-500">{item.calories.toFixed(0)} kCal</p>
+            </div>
+            <button onClick={() => removeItem(index)} className="text-lg">
+              <IoIosClose />
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

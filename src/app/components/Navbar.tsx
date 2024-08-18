@@ -5,7 +5,7 @@ import NavbarItems from "./NavbarItems";
 const Navbar = async () => {
   const session = await getSession();
   return (
-    <div>
+    <div className="text-sm">
       <NavbarItems isLoggedIn={session.isLoggedIn} />
     </div>
   );
