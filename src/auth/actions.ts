@@ -77,13 +77,13 @@ export const login = async (formData: FormData) => {
     },
   });
 
-  console.log(user);
-
   if (!user) return { error: "Incorrect username or password" };
 
   // check password
 
-  if (user.password === password) {
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (isPasswordValid) {
     session.userId = user.id;
     session.username = user.email;
     session.isAdmin = user.isAdmin;

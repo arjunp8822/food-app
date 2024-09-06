@@ -1,5 +1,5 @@
 import React from "react";
-import { Item } from "@/app/recipes/create/page";
+import { Item } from "@/app/components/CreateRecipe";
 
 interface SearchBarProps {
   searchValue: string;

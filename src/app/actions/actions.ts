@@ -23,6 +23,20 @@ export const fetchAllRecipes = async () => {
   const recipes = await prisma.recipe.findMany({
     include: {
       author: true,
+      items: true,
+    },
+  });
+  return recipes;
+};
+
+export const fetchRecipeById = async (recipeId: string) => {
+  const recipes = await prisma.recipe.findUnique({
+    where: {
+      id: recipeId,
+    },
+    include: {
+      author: true,
+      items: true,
     },
   });
   return recipes;
@@ -44,8 +58,20 @@ export const saveRecipe = async (recipeData: {
   title: string;
   authorId: string;
   savedItems: { id: number; weight: number }[];
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbohydrates: number;
+  totalFat: number;
 }) => {
-  const { title, authorId, savedItems } = recipeData;
+  const {
+    title,
+    authorId,
+    savedItems,
+    totalCalories,
+    totalProtein,
+    totalCarbohydrates,
+    totalFat,
+  } = recipeData;
 
   try {
     const recipe = await prisma.recipe.create({
@@ -58,6 +84,10 @@ export const saveRecipe = async (recipeData: {
             weight: item.weight,
           })),
         },
+        totalCalories,
+        totalProtein,
+        totalCarbohydrates,
+        totalFat,
       },
     });
 

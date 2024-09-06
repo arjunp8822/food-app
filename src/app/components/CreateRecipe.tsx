@@ -6,6 +6,7 @@ import SearchBar from "@/app/components/SearchBar";
 import ItemModal from "@/app/components/ItemModal";
 import SavedItemsList from "@/app/components/SavedItemsList";
 import { saveRecipe } from "@/app/actions/actions";
+import { TotalItemProps } from "../recipes/[recipeId]/page";
 
 export interface Item {
   id: number;
@@ -108,6 +109,24 @@ const CreateRecipe = ({ userId }: CreateRecipeProps) => {
       return;
     }
 
+    const totalNutrients = savedItems.reduce(
+      (totals, item) => {
+        const weight = item.weight || 1;
+        return {
+          calories: totals.calories + item.calories,
+          carbohydrates: totals.carbohydrates + item.carbohydrates,
+          fat: totals.fat + item.fat,
+          protein: totals.protein + item.protein,
+        };
+      },
+      {
+        calories: 0,
+        carbohydrates: 0,
+        fat: 0,
+        protein: 0,
+      }
+    );
+
     const recipeData = {
       title: recipeName,
       authorId: userId as string,
@@ -115,6 +134,10 @@ const CreateRecipe = ({ userId }: CreateRecipeProps) => {
         id: item.id,
         weight: item.weight || 1,
       })),
+      totalCalories: totalNutrients.calories,
+      totalProtein: totalNutrients.protein,
+      totalCarbohydrates: totalNutrients.carbohydrates,
+      totalFat: totalNutrients.fat,
     };
 
     try {
@@ -133,7 +156,7 @@ const CreateRecipe = ({ userId }: CreateRecipeProps) => {
         </label>
         <input
           type="text"
-          placeholder="Chicken leek soup"
+          placeholder="E.g. Chicken leek soup"
           onChange={(e) => setRecipeName(e.target.value)}
           className="border p-2 rounded-lg"
           id="name"

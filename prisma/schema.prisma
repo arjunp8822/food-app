@@ -18,11 +18,15 @@ model User {
 }
 
 model Recipe {
-  id       String @id @default(cuid())
-  title    String
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String
-  items    Item[] @relation("RecipeItems")
+  id                 String @id @default(cuid())
+  title              String
+  author             User   @relation(fields: [authorId], references: [id])
+  authorId           String
+  totalCalories      Int
+  totalProtein       Int
+  totalCarbohydrates Int
+  totalFat           Int
+  items              Item[] @relation("RecipeItems")
 
   @@map("recipes")
 }

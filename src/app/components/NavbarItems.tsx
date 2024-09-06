@@ -7,19 +7,20 @@ import { usePathname } from "next/navigation";
 
 interface Props {
   isLoggedIn: boolean;
+  isAdmin: boolean;
 }
 
-const NavbarItems = ({ isLoggedIn }: Props) => {
+const NavbarItems = ({ isLoggedIn, isAdmin }: Props) => {
   const [showMobNav, setShowMobNav] = useState(false);
   const pathname = usePathname().split("/")[1];
 
   return (
-    <nav className="flex p-2 justify-between h-[60px] items-center z-10 border border-b-gray-200 text-gray-500">
+    <nav className="flex p-2 justify-between h-[60px] items-center z-20 border border-b-gray-200 text-gray-500">
       <div className="text-black font-semibold">
         <Link href="/">Food App</Link>
       </div>
       <ul
-        className={`flex transition-all duration-500 ease-in-out flex-col gap-4 p-4 w-full h-[calc(100%-60px)] bg-white fixed top-1/2 left-1/2 transform sm:static sm:top-auto sm:left-auto sm:transform-none sm:flex-row sm:h-auto sm:w-auto sm:p-0 z-10 ${
+        className={`flex transition-all duration-500 ease-in-out flex-col gap-4 p-4 w-full h-[calc(100%-60px)] bg-white fixed top-1/2 left-1/2 transform sm:static sm:top-auto sm:left-auto sm:transform-none sm:flex-row sm:h-auto sm:w-auto sm:p-0 z-20 ${
           showMobNav
             ? "opacity-100 -translate-y-[calc(50%-30px)] -translate-x-1/2"
             : "opacity-0 pointer-events-none sm:pointer-events-auto sm:opacity-100 -translate-y-[calc(50%-30px)] -translate-x-full"
@@ -36,7 +37,7 @@ const NavbarItems = ({ isLoggedIn }: Props) => {
             Recipes
           </Link>
         </li>
-        {isLoggedIn && (
+        {isLoggedIn && isAdmin && (
           <li
             className={`${
               pathname === "admin"

@@ -6,7 +6,7 @@ const Navbar = async () => {
   const session = await getSession();
   return (
     <div className="text-sm">
-      <NavbarItems isLoggedIn={session.isLoggedIn} />
+      <NavbarItems isLoggedIn={session.isLoggedIn} isAdmin={session.isAdmin!} />
     </div>
   );
 };

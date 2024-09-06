@@ -1,5 +1,5 @@
-import React from "react";
-import { Item } from "@/app/recipes/create/page";
+import React, { useState } from "react";
+import { Item } from "@/app/components/CreateRecipe";
 
 interface ItemModalProps {
   currentItem: Item | undefined;
@@ -16,7 +16,25 @@ const ItemModal: React.FC<ItemModalProps> = ({
   onSave,
   onClear,
 }) => {
+  const [weight, setWeight] = useState<number | string>(currentItemWeight);
+
   if (!currentItem) return null;
+
+  const handleWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const numericValue = parseInt(value, 10);
+
+    if (value === "" || isNaN(numericValue)) {
+      setWeight("");
+      onWeightChange(0);
+    } else {
+      setWeight(numericValue);
+      onWeightChange(numericValue);
+    }
+  };
+
+  // Ensure that currentItemWeight is a number
+  const weightValue = typeof weight === "number" ? weight : 0;
 
   return (
     <div className="border shadow-sm p-8 rounded-lg flex flex-col gap-4 w-[400px] bg-white">
@@ -29,31 +47,28 @@ const ItemModal: React.FC<ItemModalProps> = ({
           type="number"
           placeholder="grams"
           className="border p-2 rounded-lg"
-          value={currentItemWeight}
-          onChange={(e) => {
-            const value = parseInt(e.target.value);
-            onWeightChange(isNaN(value) ? 1 : value);
-          }}
-          min={1}
+          value={weight}
+          onChange={handleWeightChange}
+          min={0}
           id="grams"
         />
       </div>
 
       <div className="flex flex-wrap gap-2">
         <p className="border p-2 rounded-lg bg-gray-100 text-gray-800">
-          {Math.round(currentItemWeight * currentItem.calories)} Calories
+          {Math.round(weightValue * (currentItem.calories || 0))} Calories
         </p>
         <p className="border p-2 rounded-lg text-gray-800">
-          {Math.round(currentItemWeight * currentItem.carbohydrates)}g Carbs
+          {Math.round(weightValue * (currentItem.carbohydrates || 0))}g Carbs
         </p>
         <p className="border p-2 rounded-lg text-gray-800">
-          {Math.round(currentItemWeight * currentItem.fat)}g Fat
+          {Math.round(weightValue * (currentItem.fat || 0))}g Fat
         </p>
         <p className="border p-2 rounded-lg text-gray-800">
-          {Math.round(currentItemWeight * currentItem.protein)}g Protein
+          {Math.round(weightValue * (currentItem.protein || 0))}g Protein
         </p>
         <p className="border p-2 rounded-lg text-gray-800">
-          {Math.round(currentItemWeight * currentItem.sugar)}g Sugar
+          {Math.round(weightValue * (currentItem.sugar || 0))}g Sugar
         </p>
       </div>
 

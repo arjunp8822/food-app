@@ -17,7 +17,12 @@ const MyRecipes = async () => {
       <ul className="grid md:grid-cols-2 gap-4">
         {recipes.map((recipe) => (
           <li key={recipe.id}>
-            <RecipeCard title={recipe.title} author={recipe.author.email} />
+            <RecipeCard
+              title={recipe.title}
+              author={recipe.author.email}
+              id={recipe.id}
+              calories={recipe.totalCalories}
+            />
           </li>
         ))}
       </ul>

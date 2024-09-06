@@ -1,5 +1,5 @@
 import React from "react";
-import { Item } from "@/app/recipes/create/page";
+import { Item } from "@/app/components/CreateRecipe";
 import { IoIosClose } from "react-icons/io";
 
 interface SavedItemsListProps {
